@@ -1,0 +1,30 @@
+{
+  "name": "empleo",
+  "version": "1.0.0",
+  "description": "Proyecto destinado para inovatec 2024, + Empleo.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomasBotello/Mas_Empleo.git"
+  },
+  "author": "TomasBotello",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TomasBotello/Mas_Empleo/issues"
+  },
+  "homepage": "https://github.com/TomasBotello/Mas_Empleo#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.0"
+  }
+}

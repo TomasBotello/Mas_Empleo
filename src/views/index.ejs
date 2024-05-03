@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    
+</head>
+
+
+<body>
+    
+
+    <div class="container">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container-fluid">
+                    <!-- Logo e imagen -->
+                    <a class="navbar-brand d-flex align-items-center" href="#">
+                        <img src="images/2-removebg-preview.png" class="img-fluid me-2" alt="Imagen de la vacante" height="200px" width="200px">
+                        Mi Sitio
+                    </a>
+                    <!-- Botón del menú colapsable -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <!-- Menú colapsable -->
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/curriculum">Curriculum</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/vacantes">Vacantes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/nosotros">Nosotros</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Botón de Cerrar Sesión -->
+                    <div>
+                        <a class="btn btn-danger" href="/logout">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+
+    
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 logoutb">
+                <h2 class="title">Bienvenido <%= username %></h2>
+                <!-- <div class="form-group ">
+                    <a class="btn btn-primary buttonAdd" href="/logout" >Cerrar sesión</a>
+                </div> -->
+            </div>
+
+
+
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    Vacante Disponible
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Desarrollador Web Senior</h5>
+                    <p class="card-text">Estamos buscando un desarrollador web senior para unirse a nuestro equipo dinámico. Debes tener al menos 5 años de experiencia en desarrollo web y experiencia demostrada en HTML, CSS, JavaScript y frameworks como React o Angular. Se valorará la capacidad para trabajar en equipo y comunicarse efectivamente.</p>
+                    
+                    <div class="collapse mt-3" id="vacanteDetalles1">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Escenario:</strong> Sistemas informáticos</li>
+                            <li class="list-group-item"><strong>Empresa:</strong> Asesores Empresariales</li>
+                            <li class="list-group-item"><strong>Ubicación:</strong> Guadalajara, Jal.</li>
+                            <li class="list-group-item"><strong>Salario:</strong> $6,500 a $8,000 por mes</li>
+                            <li class="list-group-item"><strong>Horario:</strong> Lunes a viernes</li>
+                            <li class="list-group-item"><strong>Postulación:</strong> vía Indeed</li>
+                            <li class="list-group-item"><strong>Tipo de trabajo:</strong> Tiempo completo +1</li>
+                            <li class="list-group-item"><strong>Requisitos:</strong>
+                                <ul>
+                                    <li>Conocimiento en desarrollo web (deseable).</li>
+                                    <li>Conocimiento y administración en redes.</li>
+                                    <li>Conocimientos de IA para empresas.</li>
+                                    <li>Bases de datos para empresa.</li>
+                                    <li>Habilidades de comunicación verbal y escrita.</li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">Activo hace 9 días</li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-secondary btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#vacanteDetalles1" aria-expanded="false" aria-controls="vacanteDetalles1">
+                        Ver detalles
+                    </button>
+                    <button class="btn btn-primary btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#registrarModal">
+                        Postular Ahora
+                    </button>
+                </div>
+            </div>
+            <br>
+            
+            <div class="card">
+                <div class="card-header">
+                    Vacante Disponible
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Asistente de Ventas - Ferretería</h5>
+                    <p class="card-text">Estamos buscando un asistente de ventas para nuestra ferretería. Si te apasiona el mundo de la construcción, tienes habilidades para la atención al cliente y estás buscando una oportunidad para crecer en el sector, ¡esta es tu oportunidad!</p>
+                    
+                    <div class="collapse mt-3" id="vacanteDetalles2">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Escenario:</strong> Ferretería</li>
+                            <li class="list-group-item"><strong>Empresa:</strong> Ferretería El Martillo</li>
+                            <li class="list-group-item"><strong>Ubicación:</strong> Ciudad de México, CDMX</li>
+                            <li class="list-group-item"><strong>Salario:</strong> $6,000 a $7,500 por mes</li>
+                            <li class="list-group-item"><strong>Horario:</strong> Lunes a sábado, tiempo completo</li>
+                            <li class="list-group-item"><strong>Postulación:</strong> En tienda, presentando CV</li>
+                            <li class="list-group-item"><strong>Requisitos:</strong>
+                                <ul>
+                                    <li>Experiencia previa en atención al cliente (deseable).</li>
+                                    <li>Conocimientos básicos en productos de ferretería.</li>
+                                    <li>Habilidades de comunicación y trabajo en equipo.</li>
+                                    <li>Disponibilidad para trabajar en horarios flexibles.</li>
+                                    <li>Implementar un sistema de aforos mexicanos.</li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item">Activo hace 7 días</li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-secondary btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#vacanteDetalles2" aria-expanded="false" aria-controls="vacanteDetalles2">
+                        Ver detalles
+                    </button>
+                    <button class="btn btn-primary btn-lg" type="button" data-bs-toggle="modal" data-bs-target="#registrarModal">
+                        Postular Ahora
+                    </button>
+                </div>
+            </div>
+            
+            
+            
+            <!-- Modal para registrar un nuevo producto -->
+            <div class="modal fade" id="registrarModal" tabindex="-1" aria-labelledby="registrarModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="registrarModalLabel">Registrar producto</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/add" method="POST">
+                                <div class="form-group">
+                                    <label for="producto" class="form-label">Nombre</label>
+                                    <input type="text" id="producto" name="producto" placeholder="Producto" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="precio" class="form-label">Precio</label>
+                                    <input type="number" id="precio" name="precio" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="iva" class="form-label">IVA</label>
+                                    <input type="number" id="iva" name="iva" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="descripcion" class="form-label">Descripcion del producto</label>
+                                    <input type="text" id="descripcion" name="descripcion" placeholder="descripcion" class="form-control">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" style="background-color: #c180d5; color: white; border-color: #c180d5;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" style="background-color: #9470c4; color: white; border-color: #9470c4;" class="btn btn-warning">Registrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+
+
+
+            <div class="col-md-6 marginLow">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/add" method="post">
+                            <div class="form-group separator">
+                                <h2 class="separatorTitle">Agrega un elemento</h2>
+                            </div>
+                            <div class="form-group separator">
+                                <input required id="producto" name="producto" placeholder="Producto"
+                                    class="form-control form-control-lg" type="text"
+                                    aria-label=".form-control-lg example">
+                            </div>
+                            <div class="form-group separator">
+                                <input required="precio" name="precio" placeholder="Precio"
+                                    class="form-control form-control-lg" type="number"
+                                    aria-label=".form-control-lg example">
+                            </div>
+                            <div class="form-group separator">
+                                <input required id="iva" name="iva" placeholder="%Iva"
+                                    class="form-control form-control-lg" type="number"
+                                    aria-label=".form-control-lg example">
+                            </div>
+                            <button class="btn btn-primary buttonAdd">Agregar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>IVA</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var i=0; i < datos.length; i++){ %>
+                                <tr>
+                                    <td class="text-center align-middle numberData">
+                                        <%= i+1 %>
+                                    </td>
+                                    <td class="align-middle">
+                                        <%= datos[i].producto %>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <%= datos[i].precio %>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <%= datos[i].iva %>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <div class="">
+                                            <button type="button" class="btn btn-danger buttonsOptions" data-bs-toggle="modal" data-bs-target="#deleteModal<%= datos[i]._id %>">
+                                                Eliminar
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="deleteModal<%= datos[i]._id %>" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Eliminar
+                                                                Registro
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            ¿Desea eliminar el registro "<%= datos[i].producto %>"?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancelar</button>
+                                                            <a href="/del/<%= datos[i]._id %>"
+                                                                class="btn btn-danger">Eliminar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <button type="button" class="btn btn-primary buttonsOptions" data-bs-toggle="modal"
+                                                data-bs-target="#UpdateModal<%= datos[i]._id %>">
+                                                Cambiar
+                                            </button>
+                                            <!-- Update Modal -->
+                                            <div class="modal fade" id="registrarModal" tabindex="-1" aria-labelledby="registrarModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="registrarModalLabel">Crear Curriculum</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="/crear_curriculum" method="POST">
+                                                                <div class="form-group">
+                                                                    <label for="educacion" class="form-label">Educación</label>
+                                                                    <input type="text" id="educacion" name="educacion" placeholder="Educación" class="form-control">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="experiencia" class="form-label">Experiencia Laboral</label>
+                                                                    <textarea id="experiencia" name="experiencia" placeholder="Experiencia Laboral" class="form-control"></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="habilidades" class="form-label">Habilidades</label>
+                                                                    <textarea id="habilidades" name="habilidades" placeholder="Habilidades" class="form-control"></textarea>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" style="background-color: #c180d5; color: white; border-color: #c180d5;" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                                    <button type="submit" style="background-color: #9470c4; color: white; border-color: #9470c4;" class="btn btn-warning">Registrar</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
