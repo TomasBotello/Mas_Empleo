@@ -9,39 +9,42 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <!-- Barra de navegación -->
     <div class="container">
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Mi Sitio</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                        aria-label="Toggle navigation">
+                    <!-- Logo e imagen -->
+                    <a class="navbar-brand" href="#">
+                        <span class="highlight">+ Empleo</span>
+                    </a>
+                    <!-- Botón del menú colapsable -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Menú colapsable -->
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="/">Inicio</a>
+                                <a class="nav-link active" aria-current="page" href="/">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/curriculum">Curriculum</a>
+                                <a class="nav-link" href="/curriculum">Curriculum</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/vacante">Vacantes</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/nosotros">Nosotros</a>
-                            </li>
+
                         </ul>
                     </div>
+                    <!-- Botón de Cerrar Sesión -->
                     <div>
                         <a class="btn btn-danger" href="/logout">Cerrar Sesión</a>
                     </div>
                 </div>
             </nav>
         </header>
-
+    </div>
         <div class="container">
             <!-- Botón para abrir el modal -->
             <% if (loggedIn) { %>
@@ -93,22 +96,23 @@
                                         <option value="Educación continua o de adultos">Educación continua o de adultos</option>
                                     </select>
                                 </div>
-                                <div class="mb-3">
+
+
+
+                                <<div class="mb-3">
                                     <label for="habilidades" class="form-label">Habilidades</label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" id="habilidadNueva" placeholder="Ingresa una habilidad">
-                                        <button class="btn btn-outline-secondary" type="button" onclick="agregarHabilidad()">Agregar</button>
-                                    </div>
-                                    <ul id="listaHabilidades" class="list-group"></ul>
-                                    <!-- Campo oculto para almacenar las habilidades como cadena -->
-                                    <input type="hidden" id="habilidadesInput" name="habilidades">
+                                    <!-- Campo de entrada de texto múltiple para habilidades -->
+                                    <textarea class="form-control" id="habilidades" name="habilidades" rows="3" placeholder="Ingrese una habilidad por línea"></textarea>
                                 </div>
-                                    <ul id="listaHabilidades" class="list-group"></ul>
-                                  </div>
+
+
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     <button type="submit" class="btn btn-primary">Crear</button>
                                 </div>
+
+                                
                             </form>
                         </div>
                     </div>
@@ -237,18 +241,8 @@
                                         <p class="card-text"> <strong>Carrera:</strong> <%= curriculums[i].carrera %></p>
                                         <p class="card-text"><strong>Experiencia: </strong> <%= curriculums[i].experiencia %></p>
                                         <p class="card-text"><strong>Educación: </strong><%= curriculums[i].educacion %></p>
-                                        <!-- Mostrar habilidades como una lista ordenada -->
-                                        <strong>Habilidades:</strong>
-                                        <ol>
-                                            <% if (typeof curriculums[i].habilidades === 'string') { %>
-                                                <% var habilidades = curriculums[i].habilidades.split(','); %>
-                                                <% for (var j = 0; j < habilidades.length; j++) { %>
-                                                    <li><%= habilidades[j] %></li>
-                                                <% } %>
-                                            <% } else { %>
-                                                <li><%= curriculums[i].habilidades %></li>
-                                            <% } %>
-                                        </ol>
+                                        <!-- Mostrar habilidades separadas por comas -->
+                                        <p class="card-text"><strong>Habilidades: </strong><%= curriculums[i].habilidades.join(', ') %></p>
                                         <!-- Botones de edición y eliminación de currículum -->
                                         <% if (loggedIn) { %>
                                             <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal<%= i %>">Editar</a>
@@ -332,28 +326,8 @@
             
             
 
-        <script>
-            function agregarHabilidad() {
-            var nuevaHabilidad = document.getElementById("habilidadNueva").value.trim();
-            if (nuevaHabilidad !== "") {
-                var li = document.createElement("li");
-                li.className = "list-group-item";
-                li.textContent = nuevaHabilidad;
-                document.getElementById("listaHabilidades").appendChild(li);
-
-                // Actualizar el campo de entrada oculto con todas las habilidades
-                var habilidades = document.querySelectorAll("#listaHabilidades li");
-                var habilidadesArray = [];
-                habilidades.forEach(function(habilidad) {
-                    habilidadesArray.push(habilidad.textContent);
-                });
-                document.getElementById("habilidadesInput").value = habilidadesArray.join(",");
-                document.getElementById("habilidadNueva").value = "";
-            }
-        }
-
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 </body>

@@ -78,10 +78,17 @@ router.post("/vice", async (req, res) => {
 
 // Main route, displays data
 router.get('/', createSessionCheck, async (req, res) => {
-  const datos = await Producto.find();
-  res.render('index.ejs', {
-    datos , username: req.session.username
-  });
+  try {
+    const datos = await Producto.find();
+    const vacantes = await Vacante.find(); // Agregado
+    res.render('index.ejs', {
+      datos,
+      vacantes, // Agregado
+      username: req.session.username
+    });
+  } catch (error) {
+    res.status(500).send('Error interno del servidor');
+  }
 });
 
 // Route to register a new user
@@ -192,7 +199,7 @@ router.get('/editar_curriculum/:id', async (req, res) => {
 router.post('/actualizar_curriculum/:id', async (req, res) => {
   try {
       const { id } = req.params;
-      const { nombre, carrera, experiencia, educacion, habilidades } = req.body;
+      const { nombre,  carrera, experiencia, educacion, habilidades } = req.body;
       await Curriculum.findByIdAndUpdate(id, { nombre, carrera, experiencia, educacion, habilidades });
       res.redirect('/curriculum');
   } catch (error) {
@@ -220,17 +227,17 @@ router.post('/crear_vacante', async (req, res) => {
   }
 });
 
-// Ruta para procesar la actualización de una vacante
 router.post('/actualizar_vacante/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { titulo, descripcion, categoria, empresa, ubicacion, salario, horario, postulacion, educacion, tipo_trabajo, requisitos } = req.body;
-    await Vacante.findByIdAndUpdate(id, { titulo, descripcion, categoria, empresa, ubicacion, salario, horario, postulacion, educacion, tipo_trabajo, requisitos });
-    res.redirect('/vacante');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error interno del servidor');
-  }
+    try {
+        const { id } = req.params;
+        const { titulo, descripcion, categoria, empresa, ubicacion, salario, horario, postulacion, educacion, tipo_trabajo, requisitos } = req.body;
+        // Actualiza la vacante con el ID proporcionado con los nuevos datos
+        await Vacante.findByIdAndUpdate(id, { titulo, descripcion, categoria, empresa, ubicacion, salario, horario, postulacion, educacion, tipo_trabajo, requisitos });
+        res.redirect('/vacante');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error interno del servidor');
+    }
 });
 
 // Ruta para mostrar todas las vacantes
@@ -248,14 +255,14 @@ router.get('/vacante', async (req, res) => {
 });
 
 // Ruta para eliminar una vacante
-router.get('/eliminar_vacante/:id', async (req, res) => {
+router.delete('/eliminar_vacante/:id', async (req, res) => {
   try {
     const { id } = req.params;
     await Vacante.findByIdAndDelete(id);
-    res.redirect('/vacante');
+    res.json({ success: true }); // Enviar una respuesta JSON indicando que la eliminación fue exitosa
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error interno del servidor');
+    res.status(500).json({ success: false, error: 'Error interno del servidor' });
   }
 });
 
@@ -273,3 +280,5 @@ router.get('/editar_vacante/:id', async (req, res) => {
 
 
 module.exports = router;
+
+
