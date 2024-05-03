@@ -23,9 +23,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const indexRoutes = require('./src/routers/index.js');
 app.use('/', indexRoutes);
 
+const Vacante = require('./src/routers/vacante.js');
+
 
 // Connection to MongoDB
-mongoose.connect("mongodb+srv://tbotello73:bdtbote@cluster0.fbmoru0.mongodb.net/Prueba?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://tbotello73:bdtbote@cluster0.fbmoru0.mongodb.net/Empleo?retryWrites=true&w=majority")
   .then(db => {
     console.log('db connected :)');
     app.listen(app.get('port'), () => {

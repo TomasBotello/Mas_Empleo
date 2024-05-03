@@ -6,7 +6,7 @@ const curriculumSchema = new Schema({
     carrera: String,
     educacion: String,
     experiencia: String,
-    habilidades: String,
+    habilidades: [String], // Cambiar a un array de Strings
 });
 
 module.exports = mongoose.model('Curriculum', curriculumSchema);

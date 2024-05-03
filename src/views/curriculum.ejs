@@ -28,7 +28,7 @@
                                 <a class="nav-link active" aria-current="page" href="/curriculum">Curriculum</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/vacantes">Vacantes</a>
+                                <a class="nav-link" href="/vacante">Vacantes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/nosotros">Nosotros</a>
@@ -74,12 +74,37 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="educacion" class="form-label">Educación</label>
-                                    <textarea class="form-control" id="educacion" name="educacion" rows="3" placeholder="Detalles de la educación" maxlength="150"></textarea>
+                                    <select class="form-select" id="educacion" name="educacion">
+                                        <option value="">Selecciona un nivel de educación</option>
+                                        <option value="Sin educación formal">Sin educación formal</option>
+                                        <option value="Primaria incompleta">Primaria incompleta</option>
+                                        <option value="Primaria completa">Primaria completa</option>
+                                        <option value="Secundaria incompleta">Secundaria incompleta</option>
+                                        <option value="Secundaria completa">Secundaria completa</option>
+                                        <option value="Educación técnica o profesional incompleta">Educación técnica o profesional incompleta</option>
+                                        <option value="Educación técnica o profesional completa">Educación técnica o profesional completa</option>
+                                        <option value="Bachillerato incompleto">Bachillerato incompleto</option>
+                                        <option value="Bachillerato completo (Preparatoria)">Bachillerato completo (Preparatoria)</option>
+                                        <option value="Educación universitaria incompleta (Licenciatura)">Educación universitaria incompleta (Licenciatura)</option>
+                                        <option value="Educación universitaria completa (Licenciatura)">Educación universitaria completa (Licenciatura)</option>
+                                        <option value="Estudios de posgrado incompletos (Maestría, Doctorado)">Estudios de posgrado incompletos (Maestría, Doctorado)</option>
+                                        <option value="Estudios de posgrado completos (Maestría, Doctorado)">Estudios de posgrado completos (Maestría, Doctorado)</option>
+                                        <option value="Formación técnica especializada (cursos, diplomados)">Formación técnica especializada (cursos, diplomados)</option>
+                                        <option value="Educación continua o de adultos">Educación continua o de adultos</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="habilidades" class="form-label">Habilidades</label>
-                                    <textarea class="form-control" id="habilidades" name="habilidades" rows="3" placeholder="Lista de habilidades" maxlength="350"></textarea>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="habilidadNueva" placeholder="Ingresa una habilidad">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="agregarHabilidad()">Agregar</button>
+                                    </div>
+                                    <ul id="listaHabilidades" class="list-group"></ul>
+                                    <!-- Campo oculto para almacenar las habilidades como cadena -->
+                                    <input type="hidden" id="habilidadesInput" name="habilidades">
                                 </div>
+                                    <ul id="listaHabilidades" class="list-group"></ul>
+                                  </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     <button type="submit" class="btn btn-primary">Crear</button>
@@ -89,6 +114,8 @@
                     </div>
                 </div>
             </div>
+
+            
 
             
 <!-- 
@@ -210,7 +237,18 @@
                                         <p class="card-text"> <strong>Carrera:</strong> <%= curriculums[i].carrera %></p>
                                         <p class="card-text"><strong>Experiencia: </strong> <%= curriculums[i].experiencia %></p>
                                         <p class="card-text"><strong>Educación: </strong><%= curriculums[i].educacion %></p>
-                                        <p class="card-text"><strong>Habilidades: </strong><%= curriculums[i].habilidades %></p>
+                                        <!-- Mostrar habilidades como una lista ordenada -->
+                                        <strong>Habilidades:</strong>
+                                        <ol>
+                                            <% if (typeof curriculums[i].habilidades === 'string') { %>
+                                                <% var habilidades = curriculums[i].habilidades.split(','); %>
+                                                <% for (var j = 0; j < habilidades.length; j++) { %>
+                                                    <li><%= habilidades[j] %></li>
+                                                <% } %>
+                                            <% } else { %>
+                                                <li><%= curriculums[i].habilidades %></li>
+                                            <% } %>
+                                        </ol>
                                         <!-- Botones de edición y eliminación de currículum -->
                                         <% if (loggedIn) { %>
                                             <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal<%= i %>">Editar</a>
@@ -294,6 +332,27 @@
             
             
 
+        <script>
+            function agregarHabilidad() {
+            var nuevaHabilidad = document.getElementById("habilidadNueva").value.trim();
+            if (nuevaHabilidad !== "") {
+                var li = document.createElement("li");
+                li.className = "list-group-item";
+                li.textContent = nuevaHabilidad;
+                document.getElementById("listaHabilidades").appendChild(li);
+
+                // Actualizar el campo de entrada oculto con todas las habilidades
+                var habilidades = document.querySelectorAll("#listaHabilidades li");
+                var habilidadesArray = [];
+                habilidades.forEach(function(habilidad) {
+                    habilidadesArray.push(habilidad.textContent);
+                });
+                document.getElementById("habilidadesInput").value = habilidadesArray.join(",");
+                document.getElementById("habilidadNueva").value = "";
+            }
+        }
+
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>

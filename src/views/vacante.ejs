@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vacante</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    
+</head>
+
+
+<body>
+    
+
+    <div class="container">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container-fluid">
+                    <!-- Logo e imagen -->
+                    <a class="navbar-brand d-flex align-items-center" href="#">
+                        <img src="images/2-removebg-preview.png" class="img-fluid me-2" alt="Imagen de la vacante" height="200px" width="200px">
+                        Mi Sitio
+                    </a>
+                    <!-- Botón del menú colapsable -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <!-- Menú colapsable -->
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/curriculum">Curriculum</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link active" aria-current="page" href="/vacante">vacante</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/nosotros">Nosotros</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Botón de Cerrar Sesión -->
+                    <div>
+                        <a class="btn btn-danger" href="/logout">Cerrar Sesión</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- Botón para activar el modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registrarVacanteModal">
+            Registrar Nueva Vacante
+        </button>
+
+        <!-- Modal para registrar una nueva vacante -->
+        <div class="modal fade" id="registrarVacanteModal" tabindex="-1" aria-labelledby="registrarVacanteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registrarVacanteModalLabel">Registrar Nueva Vacante</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Formulario para crear una nueva vacante -->
+                        <form action="/crear_vacante" method="POST">
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Título de la vacante</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título de la vacante">
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripción de la vacante</label>
+                                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Descripción de la vacante"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="categoria" class="form-label">Categoría</label>
+                                <input type="text" class="form-control" id="categoria" name="categoria" placeholder="Categoría de la vacante">
+                            </div>
+                            <div class="mb-3">
+                                <label for="empresa" class="form-label">Empresa</label>
+                                <input type="text" class="form-control" id="empresa" name="empresa" placeholder="Empresa">
+                            </div>
+                            <div class="mb-3">
+                                <label for="ubicacion" class="form-label">Ubicación</label>
+                                <input type="text" class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicación">
+                            </div>
+                            <div class="mb-3">
+                                <label for="salario" class="form-label">Salario</label>
+                                <input type="text" class="form-control" id="salario" name="salario" placeholder="Salario">
+                            </div>
+                            <div class="mb-3">
+                                <label for="horario" class="form-label">Horario</label>
+                                <input type="text" class="form-control" id="horario" name="horario" placeholder="Horario">
+                            </div>
+                            <div class="mb-3">
+                                <label for="postulacion" class="form-label">Forma de Postulación</label>
+                                <input type="text" class="form-control" id="postulacion" name="postulacion" placeholder="Forma de Postulación">
+                            </div>
+                            <div class="mb-3">
+                                <label for="educacion" class="form-label">Educación Mínima Requerida</label>
+                                <input type="text" class="form-control" id="educacion" name="educacion" placeholder="Educación Mínima Requerida">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipo_trabajo" class="form-label">Tipo de Trabajo</label>
+                                <input type="text" class="form-control" id="tipo_trabajo" name="tipo_trabajo" placeholder="Tipo de Trabajo">
+                            </div>
+                            <div class="mb-3">
+                                <label for="requisitos" class="form-label">Requisitos</label>
+                                <textarea class="form-control" id="requisitos" name="requisitos" rows="3" placeholder="Requisitos"></textarea>
+                            </div>
+                            <!-- Agrega más campos según sea necesario -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Crear Vacante</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <h5 class="card-title">vacante</h5>
+            <div class="row">
+                <% for(var i=0; i < vacante.length; i++){ %>
+                    <div class="col-md-4 mb-3">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= vacante[i].titulo %></h5>
+                                <p class="card-text"> <strong>Descripción:</strong> <%= vacante[i].descripcion %></p>
+                                <p class="card-text"><strong>Categoría: </strong> <%= vacante[i].categoria %></p>
+                                <p class="card-text"><strong>Empresa: </strong><%= vacante[i].empresa %></p>
+                                <p class="card-text"><strong>Ubicación: </strong><%= vacante[i].ubicacion %></p>
+                                <p class="card-text"><strong>Salario: </strong><%= vacante[i].salario %></p>
+                                <p class="card-text"><strong>Horario: </strong><%= vacante[i].horario %></p>
+                                <p class="card-text"><strong>Forma de Postulación: </strong><%= vacante[i].postulacion %></p>
+                                <p class="card-text"><strong>Educación Mínima Requerida: </strong><%= vacante[i].educacion %></p>
+                                <p class="card-text"><strong>Tipo de Trabajo: </strong><%= vacante[i].tipo_trabajo %></p>
+                                <p class="card-text"><strong>Requisitos: </strong><%= vacante[i].requisitos %></p>
+                                <!-- Botones de edición y eliminación de vacante -->
+                                <% if (loggedIn) { %>
+                                    <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal<%= i %>">Editar</a>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal<%= i %>">Eliminar</button>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Modal para editar vacante -->
+                    <div class="modal fade" id="editarModal<%= i %>" tabindex="-1" aria-labelledby="editarModalLabel<%= i %>" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editarModalLabel<%= i %>">Editar Vacante</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/actualizar_vacante/<%= vacante[i]._id %>" method="POST">
+                                        <div class="mb-3">
+                                            <label for="titulo_<%= i %>" class="form-label">Título</label>
+                                            <input type="text" class="form-control" id="titulo_<%= i %>" name="titulo" placeholder="Título" value="<%= vacante[i].titulo %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="descripcion_<%= i %>" class="form-label">Descripción</label>
+                                            <textarea class="form-control" id="descripcion_<%= i %>" name="descripcion" rows="3" placeholder="Descripción"><%= vacante[i].descripcion %></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="categoria_<%= i %>" class="form-label">Categoría</label>
+                                            <input type="text" class="form-control" id="categoria_<%= i %>" name="categoria" placeholder="Categoría" value="<%= vacante[i].categoria %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="empresa_<%= i %>" class="form-label">Empresa</label>
+                                            <input type="text" class="form-control" id="empresa_<%= i %>" name="empresa" placeholder="Empresa" value="<%= vacante[i].empresa %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="ubicacion_<%= i %>" class="form-label">Ubicación</label>
+                                            <input type="text" class="form-control" id="ubicacion_<%= i %>" name="ubicacion" placeholder="Ubicación" value="<%= vacante[i].ubicacion %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="salario_<%= i %>" class="form-label">Salario</label>
+                                            <input type="text" class="form-control" id="salario_<%= i %>" name="salario" placeholder="Salario" value="<%= vacante[i].salario %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="horario_<%= i %>" class="form-label">Horario</label>
+                                            <input type="text" class="form-control" id="horario_<%= i %>" name="horario" placeholder="Horario" value="<%= vacante[i].horario %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="postulacion_<%= i %>" class="form-label">Forma de Postulación</label>
+                                            <input type="text" class="form-control" id="postulacion_<%= i %>" name="postulacion" placeholder="Forma de Postulación" value="<%= vacante[i].postulacion %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="educacion_<%= i %>" class="form-label">Educación Mínima Requerida</label>
+                                            <input type="text" class="form-control" id="educacion_<%= i %>" name="educacion" placeholder="Educación Mínima Requerida" value="<%= vacante[i].educacion %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="tipo_trabajo_<%= i %>" class="form-label">Tipo de Trabajo</label>
+                                            <input type="text" class="form-control" id="tipo_trabajo_<%= i %>" name="tipo_trabajo" placeholder="Tipo de Trabajo" value="<%= vacante[i].tipo_trabajo %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="requisitos_<%= i %>" class="form-label">Requisitos</label>
+                                            <textarea class="form-control" id="requisitos_<%= i %>" name="requisitos" rows="3" placeholder="Requisitos"><%= vacante[i].requisitos %></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Modal para eliminar vacante -->
+                    <div class="modal fade" id="eliminarModal<%= i %>" tabindex="-1" aria-labelledby="eliminarModalLabel<%= i %>" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="eliminarModalLabel<%= i %>">Eliminar Vacante</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro de que deseas eliminar esta vacante?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <a href="/eliminar_vacante/<%= vacante[i]._id %>" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                <% if ((i + 1) % 3 === 0) { %>
+                    </div><div class="row"> <!-- Cerramos la fila actual y abrimos una nueva para las siguientes tarjetas -->
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+    
+
+        
+
+ 
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

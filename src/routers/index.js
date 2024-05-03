@@ -7,6 +7,8 @@ const jwt = require("jsonwebtoken");
 const session = require("express-session");
 const crypto = require("crypto");
 const Curriculum = require('../models/cv.js');
+const Vacante = require('../models/vacante.js');
+
 
 // Generate a secret key for the session
 const secretKey = crypto.randomBytes(32).toString("hex");
@@ -200,6 +202,74 @@ router.post('/actualizar_curriculum/:id', async (req, res) => {
 });
 
 
+
+
+
+
+
+
+// Ruta para crear una nueva vacante
+router.post('/crear_vacante', async (req, res) => {
+  try {
+    const { titulo, descripcion, categoria, empresa, ubicacion, salario, horario, postulacion, educacion, tipo_trabajo, requisitos } = req.body;
+    await Vacante.create({ titulo, descripcion, categoria, empresa, ubicacion, salario, horario, postulacion, educacion, tipo_trabajo, requisitos });
+    res.redirect('/vacante');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para procesar la actualización de una vacante
+router.post('/actualizar_vacante/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { titulo, descripcion, categoria, empresa, ubicacion, salario, horario, postulacion, educacion, tipo_trabajo, requisitos } = req.body;
+    await Vacante.findByIdAndUpdate(id, { titulo, descripcion, categoria, empresa, ubicacion, salario, horario, postulacion, educacion, tipo_trabajo, requisitos });
+    res.redirect('/vacante');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para mostrar todas las vacantes
+router.get('/vacante', async (req, res) => {
+  try {
+    const vacante = await Vacante.find();
+    res.render('vacante.ejs', { 
+      vacante,
+      loggedIn: req.session.token ? true : false // Verifica si hay una sesión activa
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para eliminar una vacante
+router.get('/eliminar_vacante/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Vacante.findByIdAndDelete(id);
+    res.redirect('/vacante');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+// Ruta para actualizar una vacante (renderizar formulario de edición)
+router.get('/editar_vacante/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const vacante = await Vacante.findById(id);
+    res.render('editar_vacante.ejs', { vacante });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
 
 
 module.exports = router;
