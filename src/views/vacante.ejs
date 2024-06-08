@@ -4,11 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>vacante</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Inicio</title>
+    <!-- Enlace al archivo CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-    
+    <!-- Enlace a Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .content {
+            padding-bottom: 5rem; /* espacio suficiente para el footer */
+        }
+        .footer .social-icons a {
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        .navbar .social-icons a {
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+    </style>
 </head>
 
 
@@ -42,6 +67,12 @@
                             </li>
 
                         </ul>
+                    </div>
+                    <!-- Iconos de Redes Sociales -->
+                    <div class="d-flex social-icons">
+                        <a href="https://www.facebook.com/profile.php?id=61560354602931&mibextid=ZbWKwL" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/mas_empleogv?igshid=dWU1NXAyMWRyZ203" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@agencia.empleo8?_t=8n1O5z0fvuv&_r=1" class="text-white"><i class="fab fa-tiktok"></i></a>
                     </div>
                     <!-- Botón de Cerrar Sesión -->
                     <div>
@@ -176,7 +207,7 @@
                         <button class="btn btn-warning btn-lg btn-actualizar" type="button" data-bs-toggle="modal" data-bs-target="#editarVacanteModal" data-id="<%= vacante[i]._id %>">
                             Actualizar
                         </button>
-                        <button class="btn btn-danger btn-lg btn-eliminar" type="button" data-bs-toggle="modal" data-bs-target="#eliminarVacanteModal" data-id="<%= vacante[i]._id %>">
+<button class="btn btn-danger btn-lg btn-eliminar" type="button" data-id="<%= vacante[i]._id %>">
                             Eliminar
                         </button>                        
                     </div>
@@ -286,14 +317,47 @@
 
  
 
-    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const deleteButtons = document.querySelectorAll('.btn-eliminar');
+      
+          deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+              const vacanteId = this.getAttribute('data-id');
+      
+              fetch(`/vacante/${vacanteId}`, {
+                method: 'DELETE',
+              })
+              .then(response => {
+                if (response.ok) {
+                  location.reload(); // Recargar la página para reflejar los cambios
+                } else {
+                  alert('Error al eliminar la vacante');
+                }
+              })
+              .catch(error => console.error('Error:', error));
+            });
+          });
+        });
+      </script>
+      
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
 
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61560354602931&mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/mas_empleogv?igshid=dWU1NXAyMWRyZ203"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@agencia.empleo8?_t=8n1O5z0fvuv&_r=1"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
-
-
-
 </html>

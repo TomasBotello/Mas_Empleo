@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
     <!-- Barra de navegación -->
     <div class="container">
@@ -26,15 +27,14 @@
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                                <a class="nav-link" href="/">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/curriculum">Curriculum</a>
+                                <a class="nav-link active" aria-current="page" href="/curriculum">Curriculum</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/vacante">Vacantes</a>
                             </li>
-
                         </ul>
                     </div>
                     <!-- Botón de Cerrar Sesión -->
@@ -45,290 +45,157 @@
             </nav>
         </header>
     </div>
-        <div class="container">
-            <!-- Botón para abrir el modal -->
-            <% if (loggedIn) { %>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registrarModal" style="margin-top: 20px; margin-bottom: 20px; background-color: #9a68af; color: white; border-color: #9a68af;">
-                Crear Curriculum
-            </button> 
-            <% } %>
 
-            <!-- Modal para crear curriculum -->
-            <div class="modal fade" id="registrarModal" tabindex="-1" aria-labelledby="registrarModalLabel" aria-hidden="true">
+    <div class="container">
+        <!-- Botón para abrir el modal -->
+        <% if (loggedIn) { %>
+            <button type="button" class="btn btn-primary btn-crear-curriculum" data-bs-toggle="modal" data-bs-target="#registrarModal" style="margin-top: 20px; margin-bottom: 20px;">
+                Crear Curriculum
+        </button> 
+        <% } %>
+
+        <div class="row">
+            <% curriculums.forEach((curriculum, i) => { %>
+            <div class="col-md-6 col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <%= curriculum.nombre %>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= curriculum.carrera %></h5>
+                        <p class="card-text"><strong>Educación:</strong> <%= curriculum.educacion %></p>
+                        <p class="card-text"><strong>Experiencia:</strong> <%= curriculum.experiencia %></p>
+                        <p class="card-text"><strong>Habilidades:</strong> <%= curriculum.habilidades.join(', ') %></p>
+                        <div class="button-group">
+                            <% if (loggedIn) { %>
+                            <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal<%= i %>">Editar</a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal<%= i %>">Eliminar</button>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para editar curriculum -->
+            <div class="modal fade" id="editarModal<%= i %>" tabindex="-1" aria-labelledby="editarModalLabel<%= i %>" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="registrarModalLabel">Crear Curriculum</h5>
+                            <h5 class="modal-title" id="editarModalLabel<%= i %>">Editar Currículum</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/crear_curriculum" method="POST">
+                            <form action="/actualizar_curriculum/<%= curriculums[i]._id %>" method="POST">
                                 <div class="mb-3">
-                                    <label for="nombre" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" maxlength="50">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="carrera" class="form-label">Carrera</label>
-                                    <input type="text" class="form-control" id="carrera" name="carrera" placeholder="Carrera" maxlength="50">
+                                    <label for="nombre_<%= i %>" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre_<%= i %>" name="nombre" placeholder="Nombre" value="<%= curriculums[i].nombre %>">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="experiencia" class="form-label">Experiencia Laboral</label>
-                                    <textarea class="form-control" id="experiencia" name="experiencia" rows="3" placeholder="Descripción de la experiencia laboral" maxlength="350"></textarea>
+                                    <label for="carrera<%= i %>" class="form-label">Carrera</label>
+                                    <input type="text" class="form-control" id="carrera_<%= i %>" name="carrera" placeholder="Carrera" value="<%= curriculums[i].carrera %>">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="educacion" class="form-label">Educación</label>
-                                    <select class="form-select" id="educacion" name="educacion">
-                                        <option value="">Selecciona un nivel de educación</option>
-                                        <option value="Sin educación formal">Sin educación formal</option>
-                                        <option value="Primaria incompleta">Primaria incompleta</option>
-                                        <option value="Primaria completa">Primaria completa</option>
-                                        <option value="Secundaria incompleta">Secundaria incompleta</option>
-                                        <option value="Secundaria completa">Secundaria completa</option>
-                                        <option value="Educación técnica o profesional incompleta">Educación técnica o profesional incompleta</option>
-                                        <option value="Educación técnica o profesional completa">Educación técnica o profesional completa</option>
-                                        <option value="Bachillerato incompleto">Bachillerato incompleto</option>
-                                        <option value="Bachillerato completo (Preparatoria)">Bachillerato completo (Preparatoria)</option>
-                                        <option value="Educación universitaria incompleta (Licenciatura)">Educación universitaria incompleta (Licenciatura)</option>
-                                        <option value="Educación universitaria completa (Licenciatura)">Educación universitaria completa (Licenciatura)</option>
-                                        <option value="Estudios de posgrado incompletos (Maestría, Doctorado)">Estudios de posgrado incompletos (Maestría, Doctorado)</option>
-                                        <option value="Estudios de posgrado completos (Maestría, Doctorado)">Estudios de posgrado completos (Maestría, Doctorado)</option>
-                                        <option value="Formación técnica especializada (cursos, diplomados)">Formación técnica especializada (cursos, diplomados)</option>
-                                        <option value="Educación continua o de adultos">Educación continua o de adultos</option>
-                                    </select>
+                                    <label for="experiencia_<%= i %>" class="form-label">Experiencia Laboral</label>
+                                    <textarea class="form-control" id="experiencia_<%= i %>" name="experiencia" rows="3" placeholder="Descripción de la experiencia laboral"><%= curriculums[i].experiencia %></textarea>
                                 </div>
-
-
-
-                                <<div class="mb-3">
-                                    <label for="habilidades" class="form-label">Habilidades</label>
-                                    <!-- Campo de entrada de texto múltiple para habilidades -->
-                                    <textarea class="form-control" id="habilidades" name="habilidades" rows="3" placeholder="Ingrese una habilidad por línea"></textarea>
+                                <div class="mb-3">
+                                    <label for="educacion_<%= i %>" class="form-label">Educación</label>
+                                    <textarea class="form-control" id="educacion_<%= i %>" name="educacion" rows="3" placeholder="Detalles de la educación"><%= curriculums[i].educacion %></textarea>
                                 </div>
-
-
-
+                                <div class="mb-3">
+                                    <label for="habilidades_<%= i %>" class="form-label">Habilidades</label>
+                                    <textarea class="form-control" id="habilidades_<%= i %>" name="habilidades" rows="3" placeholder="Lista de habilidades"><%= curriculums[i].habilidades %></textarea>
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Crear</button>
+                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                                 </div>
-
-                                
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
 
-            
-
-            
-<!-- 
-            Tabla para mostrar los currículums 
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Carrera</th>
-                            <th>Experiencia Laboral</th>
-                            <th>Educación</th>
-                            <th>Habilidades</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for(var i=0; i < curriculums.length; i++){ %>
-                            <tr>
-                                <td><%= i+1 %></td>
-                                <td><%= curriculums[i].nombre %></td>
-                                <td><%= curriculums[i].carrera%></td>
-                                <td><%= curriculums[i].experiencia %></td>
-                                <td><%= curriculums[i].educacion %></td>
-                                <td><%= curriculums[i].habilidades %></td>
-                                <td>
-
-
-                                     Botones de edición y eliminación de currículum 
-                                    <% if (loggedIn) { %>
-                                        <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal<%= i %>">Editar</a>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal<%= i %>">Eliminar</button>
-                                    <% } %>
-
-                                     Modal para editar curriculum 
-                                    <div class="modal fade" id="editarModal<%= i %>" tabindex="-1" aria-labelledby="editarModalLabel<%= i %>" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="editarModalLabel<%= i %>">Editar Currículum</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="/actualizar_curriculum/<%= curriculums[i]._id %>" method="POST">
-                                                        <div class="mb-3">
-                                                            <label for="nombre_<%= i %>" class="form-label">Nombre</label>
-                                                            <input type="text" class="form-control" id="nombre_<%= i %>" name="nombre" placeholder="Nombre" value="<%= curriculums[i].nombre %>">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="carrera<%= i %>" class="form-label">Carrera</label>
-                                                            <input type="text" class="form-control" id="carrera_<%= i %>" name="carrera" placeholder="Carrera" value="<%= curriculums[i].carrera %>">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="experiencia_<%= i %>" class="form-label">Experiencia Laboral</label>
-                                                            <textarea class="form-control" id="experiencia_<%= i %>" name="experiencia" rows="3" placeholder="Descripción de la experiencia laboral"><%= curriculums[i].experiencia %></textarea>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="educacion_<%= i %>" class="form-label">Educación</label>
-                                                            <textarea class="form-control" id="educacion_<%= i %>" name="educacion" rows="3" placeholder="Detalles de la educación"><%= curriculums[i].educacion %></textarea>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="habilidades_<%= i %>" class="form-label">Habilidades</label>
-                                                            <textarea class="form-control" id="habilidades_<%= i %>" name="habilidades" rows="3" placeholder="Lista de habilidades"><%= curriculums[i].habilidades %></textarea>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                                        </div>
-                                                    </form>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                     Fin del modal para editar curriculum 
-
-                                     Modal para eliminar curriculum 
-                                    <div class="modal fade" id="eliminarModal<%= i %>" tabindex="-1" aria-labelledby="eliminarModalLabel<%= i %>" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="eliminarModalLabel<%= i %>">Eliminar Currículum</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>¿Estás seguro de que deseas eliminar este currículum?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    <a href="/eliminar_curriculum/<%= curriculums[i]._id %>" class="btn btn-danger">Eliminar</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                     Fin del modal para eliminar curriculum 
-
-
-                    
-                                </td>
-                            </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-            </div>
-            -->
-
-
-
-            <div class="card" style="width: 100%;">
-                <div class="card-body">
-                    <h5 class="card-title">Currículums</h5>
-                    <div class="row">
-                        <% for(var i=0; i < curriculums.length; i++){ %>
-                            <div class="col-md-4 mb-3">
-                                <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><%= curriculums[i].nombre %></h5>
-                                        <p class="card-text"> <strong>Carrera:</strong> <%= curriculums[i].carrera %></p>
-                                        <p class="card-text"><strong>Experiencia: </strong> <%= curriculums[i].experiencia %></p>
-                                        <p class="card-text"><strong>Educación: </strong><%= curriculums[i].educacion %></p>
-                                        <!-- Mostrar habilidades separadas por comas -->
-                                        <p class="card-text"><strong>Habilidades: </strong><%= curriculums[i].habilidades.join(', ') %></p>
-                                        <!-- Botones de edición y eliminación de currículum -->
-                                        <% if (loggedIn) { %>
-                                            <a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarModal<%= i %>">Editar</a>
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal<%= i %>">Eliminar</button>
-                                        <% } %>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- Modal para editar curriculum -->
-                            <div class="modal fade" id="editarModal<%= i %>" tabindex="-1" aria-labelledby="editarModalLabel<%= i %>" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editarModalLabel<%= i %>">Editar Currículum</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="/actualizar_curriculum/<%= curriculums[i]._id %>" method="POST">
-                                                <div class="mb-3">
-                                                    <label for="nombre_<%= i %>" class="form-label">Nombre</label>
-                                                    <input type="text" class="form-control" id="nombre_<%= i %>" name="nombre" placeholder="Nombre" value="<%= curriculums[i].nombre %>">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="carrera<%= i %>" class="form-label">Carrera</label>
-                                                    <input type="text" class="form-control" id="carrera_<%= i %>" name="carrera" placeholder="Carrera" value="<%= curriculums[i].carrera %>">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="experiencia_<%= i %>" class="form-label">Experiencia Laboral</label>
-                                                    <textarea class="form-control" id="experiencia_<%= i %>" name="experiencia" rows="3" placeholder="Descripción de la experiencia laboral"><%= curriculums[i].experiencia %></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="educacion_<%= i %>" class="form-label">Educación</label>
-                                                    <textarea class="form-control" id="educacion_<%= i %>" name="educacion" rows="3" placeholder="Detalles de la educación"><%= curriculums[i].educacion %></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="habilidades_<%= i %>" class="form-label">Habilidades</label>
-                                                    <textarea class="form-control" id="habilidades_<%= i %>" name="habilidades" rows="3" placeholder="Lista de habilidades"><%= curriculums[i].habilidades %></textarea>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                                </div>
-                                            </form>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- Modal para eliminar curriculum -->
-                            <div class="modal fade" id="eliminarModal<%= i %>" tabindex="-1" aria-labelledby="eliminarModalLabel<%= i %>" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="eliminarModalLabel<%= i %>">Eliminar Currículum</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>¿Estás seguro de que deseas eliminar este currículum?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <a href="/eliminar_curriculum/<%= curriculums[i]._id %>" class="btn btn-danger">Eliminar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-            
-                        <% if ((i + 1) % 3 === 0) { %>
-                            </div><div class="row"> <!-- Cerramos la fila actual y abrimos una nueva para las siguientes tarjetas -->
-                        <% } %>
-                    <% } %>
+            <!-- Modal para eliminar curriculum -->
+            <div class="modal fade" id="eliminarModal<%= i %>" tabindex="-1" aria-labelledby="eliminarModalLabel<%= i %>" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="eliminarModalLabel<%= i %>">Eliminar Currículum</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Estás seguro de que deseas eliminar este currículum?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="/eliminar_curriculum/<%= curriculums[i]._id %>" class="btn btn-danger">Eliminar</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+            <% }); %>
+        </div>
+    </div>
 
-                
+    <!-- Modal para crear curriculum -->
+    <div class="modal fade" id="registrarModal" tabindex="-1" aria-labelledby="registrarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registrarModalLabel">Crear Curriculum</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/crear_curriculum" method="POST">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" maxlength="50">
+                        </div>
+                        <div class="mb-3">
+                            <label for="carrera" class="form-label">Carrera</label>
+                            <input type="text" class="form-control" id="carrera" name="carrera" placeholder="Carrera" maxlength="50">
+                        </div>
+                        <div class="mb-3">
+                            <label for="experiencia" class="form-label">Experiencia Laboral</label>
+                            <textarea class="form-control" id="experiencia" name="experiencia" rows="3" placeholder="Descripción de la experiencia laboral" maxlength="350"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="educacion" class="form-label">Educación</label>
+                            <select class="form-select" id="educacion" name="educacion">
+                                <option value="">Selecciona un nivel de educación</option>
+                                <option value="Sin educación formal">Sin educación formal</option>
+                                <option value="Primaria incompleta">Primaria incompleta</option>
+                                <option value="Primaria completa">Primaria completa</option>
+                                <option value="Secundaria incompleta">Secundaria incompleta</option>
+                                <option value="Secundaria completa">Secundaria completa</option>
+                                <option value="Educación técnica o profesional incompleta">Educación técnica o profesional incompleta</option>
+                                <option value="Educación técnica o profesional completa">Educación técnica o profesional completa</option>
+                                <option value="Bachillerato incompleto">Bachillerato incompleto</option>
+                                <option value="Bachillerato completo (Preparatoria)">Bachillerato completo (Preparatoria)</option>
+                                <option value="Educación universitaria incompleta (Licenciatura)">Educación universitaria incompleta (Licenciatura)</option>
+                                <option value="Educación universitaria completa (Licenciatura)">Educación universitaria completa (Licenciatura)</option>
+                                <option value="Estudios de posgrado incompletos (Maestría, Doctorado)">Estudios de posgrado incompletos (Maestría, Doctorado)</option>
+                                <option value="Estudios de posgrado completos (Maestría, Doctorado)">Estudios de posgrado completos (Maestría, Doctorado)</option>
+                                <option value="Formación técnica especializada (cursos, diplomados)">Formación técnica especializada (cursos, diplomados)</option>
+                                <option value="Educación continua o de adultos">Educación continua o de adultos</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="habilidades" class="form-label">Habilidades</label>
+                            <textarea class="form-control" id="habilidades" name="habilidades" rows="3" placeholder="Ingrese una habilidad por línea"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-            
-            
-
-   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
+
 </html>

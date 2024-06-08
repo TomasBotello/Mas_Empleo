@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <!-- Enlace al archivo CSS de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Enlace a Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .content {
+            padding-bottom: 5rem; /* espacio suficiente para el footer */
+        }
+        .footer .social-icons a {
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        .navbar .social-icons a {
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+    </style>
 </head>
-
 <body>
     <!-- Barra de navegación -->
     <div class="container">
@@ -35,8 +60,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/vacante">Vacantes</a>
                             </li>
-
                         </ul>
+                    </div>
+                    <!-- Iconos de Redes Sociales -->
+                    <div class="d-flex social-icons">
+                        <a href="https://www.facebook.com/profile.php?id=61560354602931&mibextid=ZbWKwL" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/mas_empleogv?igshid=dWU1NXAyMWRyZ203" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@agencia.empleo8?_t=8n1O5z0fvuv&_r=1" class="text-white"><i class="fab fa-tiktok"></i></a>
                     </div>
                     <!-- Botón de Cerrar Sesión -->
                     <div>
@@ -47,14 +77,10 @@
         </header>
     </div>
 
-    <div class="mt-3"></div>
-    <div class="mt-3"></div>
-
-
-
-    <div class="container">
+    <div class="container content">
         <div class="row">
             <% vacantes.forEach(vacante => { %>
+            <div class="col-md-6 col-lg-4">
                 <div class="card mb-4">
                     <div class="card-header">
                         <%= vacante.titulo %>
@@ -66,35 +92,47 @@
                         <div class="collapse mt-3" id="vacanteDetalles<%= vacante._id %>">
                             <!-- Detalles de la vacante en una lista -->
                             <ul class="list-group list-group-flush">
-                                <!-- Detalles específicos de la vacante -->
                                 <li class="list-group-item"><strong>Categoría:</strong> <%= vacante.categoria %></li>
                                 <li class="list-group-item"><strong>Empresa:</strong> <%= vacante.empresa %></li>
-                                <!-- Agrega más detalles según sea necesario -->
+                                <li class="list-group-item"><strong>Ubicación:</strong> <%= vacante.ubicacion %></li>
+                                <li class="list-group-item"><strong>Salario:</strong> <%= vacante.salario %></li>
+                                <li class="list-group-item"><strong>Horario:</strong> <%= vacante.horario %></li>
+                                <li class="list-group-item"><strong>Forma de Postulación:</strong> <%= vacante.postulacion %></li>
+                                <li class="list-group-item"><strong>Educación Mínima Requerida:</strong> <%= vacante.educacion %></li>
+                                <li class="list-group-item"><strong>Tipo de Trabajo:</strong> <%= vacante.tipo_trabajo %></li>
+                                <li class="list-group-item"><strong>Requisitos:</strong> <%= vacante.requisitos %></li>
                             </ul>
                         </div>
                         <!-- Botón para mostrar u ocultar los detalles de la vacante -->
-                        <button class="btn btn-secondary btn-lg" type="button" data-bs-toggle="collapse" data-bs-target="#vacanteDetalles<%= vacante._id %>" aria-expanded="false" aria-controls="vacanteDetalles<%= vacante._id %>">
-                            Ver detalles
-                        </button>
-                        <!-- Botón para postular a la vacante -->
-                        <!-- Puedes agregar este botón si deseas -->
+                        <div class="button-group">
+                            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#vacanteDetalles<%= vacante._id %>" aria-expanded="false" aria-controls="vacanteDetalles<%= vacante._id %>">
+                                Ver detalles
+                            </button>
+                        </div>
                     </div>
                 </div>
+            </div>
             <% }); %>
         </div>
     </div>
-    
-
-
-
 
     <!-- Modal para registrar -->
     <div class="modal fade" id="registrarModal" tabindex="-1" aria-labelledby="registrarModalLabel" aria-hidden="true">
         <!-- Contenido del modal -->
     </div>
 
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=61560354602931&mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/mas_empleogv?igshid=dWU1NXAyMWRyZ203"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@agencia.empleo8?_t=8n1O5z0fvuv&_r=1"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </footer>
+
     <!-- Script de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
-
 </html>
